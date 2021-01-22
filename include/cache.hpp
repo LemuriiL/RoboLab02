@@ -2,18 +2,18 @@
 #ifndef INCLUDE_HEADER_HPP_
 #define INCLUDE_HEADER_HPP_
 
-#include <vector>
+#include <chrono>
+#include <functional>
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <chrono>
-#include <functional>
+#include <vector>
 
-using std::cout;
 using std::cin;
+using std::cout;
+using std::ostream;
 using std::string;
 using std::stringstream;
-using std::ostream;
 
 class Cache {
   double straightTimes[6];
@@ -24,7 +24,7 @@ class Cache {
 
  public:
   void CacheSizes();
-  void Warming(int * arrayToWarm, size_t size);
+  void Warming(int* arrayToWarm, size_t size);
   void StraightExperiment();
   void BackExperiment();
   void RandomExperiment();
@@ -33,7 +33,7 @@ class Cache {
   void WhatTimeCorrect(int i, int j);
 
  private:
-  double sizes [6];
+  double sizes[6];
 
   const double min = 0.256;
   const double max = 8;
@@ -41,4 +41,4 @@ class Cache {
   const int quantity = 1000;
 };
 
-#endif // INCLUDE_HEADER_HPP_
+#endif  // INCLUDE_HEADER_HPP_
