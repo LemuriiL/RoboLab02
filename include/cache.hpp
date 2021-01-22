@@ -23,12 +23,12 @@ class Cache {
   string variant[3] = {"straight", "back", "random"};
 
  public:
-  void CacheSizes();
-  void Warming(int* arrayToWarm, size_t size);
-  void StraightExperiment();
-  void BackExperiment();
-  void RandomExperiment();
-  int* GenerateArray(size_t bufferSize);
+  void CacheWeights();
+  void Fire(int *arrayToWarm, size_t size);
+  void Straight();
+  void Back();
+  void Random();
+  int *ArrayGenerating(size_t bufferSize);
   void Print(std::ostream& os);
   void WhatTimeCorrect(int i, int j);
 

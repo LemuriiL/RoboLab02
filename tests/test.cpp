@@ -4,9 +4,9 @@
 
 TEST(Example, EmptyTest) {
   Cache experiments;
-  experiments.CacheSizes();
-  experiments.StraightExperiment();
-  experiments.BackExperiment();
-  experiments.RandomExperiment();
+  experiments.CacheWeights();
+  experiments.Straight();
+  experiments.Back();
+  experiments.Random();
   experiments.Print(std::cout);
 }

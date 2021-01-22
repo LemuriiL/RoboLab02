@@ -2,7 +2,7 @@
 #include <cache.hpp>
 #include <random>
 
-void Cache::CacheSizes() {
+void Cache::CacheWeights() {
   sizes[0] = min / 2;
   for (int n = 1, i = 1; n < max * 1.5; n *= 2, ++i) {
     sizes[i] = n;
@@ -10,13 +10,13 @@ void Cache::CacheSizes() {
   sizes[5] = max * 1.5;
 }
 
-void Cache::Warming(int* arrayToWarm, size_t size) {
+void Cache::Fire(int* fireArray, size_t size) {
   [[maybe_unused]] int k;
   for (size_t i = 0; i < size; ++i) {
-    k = arrayToWarm[i];
+    k = fireArray[i];
   }
 }
-int* Cache::GenerateArray(size_t bufferSize) {
+int* Cache::ArrayGenerating(size_t bufferSize) {
   int* generatedArray = new int[bufferSize];
   for (size_t i = 0; i < bufferSize; ++i) {
     generatedArray[i] = rand() % 100;
@@ -24,12 +24,12 @@ int* Cache::GenerateArray(size_t bufferSize) {
   return generatedArray;
 }
 
-void Cache::StraightExperiment() {
+void Cache::Straight() {
   double time[6];
   for (int i = 0; i < 6; i++) {
     size_t bufferSize = (sizes[i] * 1024 * 1024) / 4;
-    int* array = GenerateArray(bufferSize);
-    Warming(array, bufferSize);
+    int* array = ArrayGenerating(bufferSize);
+    Fire(array, bufferSize);
     [[maybe_unused]] int k;
     auto start = std::chrono::system_clock::now();
     for (size_t j = 0; j < bufferSize * quantity; j += step) {
@@ -45,12 +45,12 @@ void Cache::StraightExperiment() {
   }
 }
 
-void Cache::BackExperiment() {
+void Cache::Back() {
   double time[6];
   for (int i = 0; i < 6; i++) {
     size_t bufferSize = (sizes[i] * 1024 * 1024) / 4;
-    int* array = GenerateArray(bufferSize);
-    Warming(array, bufferSize);
+    int* array = ArrayGenerating(bufferSize);
+    Fire(array, bufferSize);
     [[maybe_unused]] int k;
     auto start = std::chrono::system_clock::now();
     for (size_t j = bufferSize * quantity; j > 0; j -= step) {
@@ -66,18 +66,18 @@ void Cache::BackExperiment() {
   }
 }
 
-void Cache::RandomExperiment() {
+void Cache::Random() {
   double time[6];
   for (int i = 0; i < 6; i++) {
     size_t bufferSize = (sizes[i] * 1024 * 1024) / 4;
-    int* array = GenerateArray(bufferSize);
+    int* array = ArrayGenerating(bufferSize);
     std::vector<size_t>::iterator start, end;
     std::vector<size_t> arr;
     for (size_t j = 0; j < bufferSize; j += step) arr.emplace_back(j);
     start = arr.begin();
     end = arr.end();
     shuffle(start, end, std::mt19937(std::random_device()()));
-    Warming(array, bufferSize);
+    Fire(array, bufferSize);
     auto startTime = std::chrono::high_resolution_clock::now();
     [[maybe_unused]] int k;
     for (size_t j = 0; j < bufferSize * quantity; j += step) {
