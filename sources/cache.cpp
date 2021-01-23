@@ -3,41 +3,27 @@
 #include <random>
 
 void Cache::CacheWeights() {
-  sizes[0] = min / 2;
-  for (int n = 1, i = 1; n < max * 1.5; n *= 2, ++i) {
+  sizes[0] = low / 2;
+  for (int n = 1, i = 1; n < hight * 1.5; n *= 2, ++i) {
     sizes[i] = n;
   }
-  sizes[5] = max * 1.5;
-}
-
-void Cache::Fire(int* fireArray, size_t size) {
-  [[maybe_unused]] int k;
-  for (size_t i = 0; i < size; ++i) {
-    k = fireArray[i];
-  }
-}
-int* Cache::ArrayGenerating(size_t bufferSize) {
-  int* generatedArray = new int[bufferSize];
-  for (size_t i = 0; i < bufferSize; ++i) {
-    generatedArray[i] = rand() % 100;
-  }
-  return generatedArray;
+  sizes[5] = hight * 1.5;
 }
 
 void Cache::Straight() {
   double time[6];
   for (int i = 0; i < 6; i++) {
-    size_t bufferSize = (sizes[i] * 1024 * 1024) / 4;
-    int* array = ArrayGenerating(bufferSize);
-    Fire(array, bufferSize);
+    size_t bSize = (sizes[i] * 1024 * 1024) / 4;
+    int* array = ArrayGenerating(bSize);
+    Fire(array, bSize);
     [[maybe_unused]] int k;
     auto start = std::chrono::system_clock::now();
-    for (size_t j = 0; j < bufferSize * quantity; j += step) {
+    for (size_t j = 0; j < bSize * shots; j += step) {
       k = array[j % 1000];
     }
     auto end = std::chrono::system_clock::now();
     time[i] = (static_cast<double>(
-        std::chrono::nanoseconds((end - start) / quantity).count()));
+        std::chrono::nanoseconds((end - start) / shots).count()));
     delete[] array;
   }
   for (int j = 0; j < 6; ++j) {
@@ -48,17 +34,17 @@ void Cache::Straight() {
 void Cache::Back() {
   double time[6];
   for (int i = 0; i < 6; i++) {
-    size_t bufferSize = (sizes[i] * 1024 * 1024) / 4;
-    int* array = ArrayGenerating(bufferSize);
-    Fire(array, bufferSize);
+    size_t bSize = (sizes[i] * 1024 * 1024) / 4;
+    int* array = ArrayGenerating(bSize);
+    Fire(array, bSize);
     [[maybe_unused]] int k;
     auto start = std::chrono::system_clock::now();
-    for (size_t j = bufferSize * quantity; j > 0; j -= step) {
+    for (size_t j = bSize * shots; j > 0; j -= step) {
       k = array[j % 1000];
     }
     auto end = std::chrono::system_clock::now();
     time[i] = (static_cast<double>(
-        std::chrono::nanoseconds((end - start) / quantity).count()));
+        std::chrono::nanoseconds((end - start) / shots).count()));
     delete[] array;
   }
   for (int j = 0; j < 6; ++j) {
@@ -69,18 +55,18 @@ void Cache::Back() {
 void Cache::Random() {
   double time[6];
   for (int i = 0; i < 6; i++) {
-    size_t bufferSize = (sizes[i] * 1024 * 1024) / 4;
-    int* array = ArrayGenerating(bufferSize);
+    size_t bSize = (sizes[i] * 1024 * 1024) / 4;
+    int* array = ArrayGenerating(bSize);
     std::vector<size_t>::iterator start, end;
     std::vector<size_t> arr;
-    for (size_t j = 0; j < bufferSize; j += step) arr.emplace_back(j);
+    for (size_t j = 0; j < bSize; j += step) arr.push_back(j);
     start = arr.begin();
     end = arr.end();
     shuffle(start, end, std::mt19937(std::random_device()()));
-    Fire(array, bufferSize);
+    Fire(array, bSize);
     auto startTime = std::chrono::high_resolution_clock::now();
     [[maybe_unused]] int k;
-    for (size_t j = 0; j < bufferSize * quantity; j += step) {
+    for (size_t j = 0; j < bSize * shots; j += step) {
       k = array[j % 1000];
     }
     auto endTime = std::chrono::high_resolution_clock::now();
@@ -93,6 +79,20 @@ void Cache::Random() {
   }
 }
 
+void Cache::Fire(int* fireArray, size_t size) {
+  [[maybe_unused]] int k;
+  for (size_t i = 0; i < size; ++i) {
+    k = fireArray[i];
+  }
+}
+int* Cache::ArrayGenerating(size_t bSize) {
+  int* generatedArray = new int[bSize];
+  for (size_t i = 0; i < bSize; ++i) {
+    generatedArray[i] = rand() % 100;
+  }
+  return generatedArray;
+}
+
 void Cache::Print(std::ostream& os) {
   using std::endl;
   for (size_t i = 0; i < 3; ++i) {
@@ -100,8 +100,8 @@ void Cache::Print(std::ostream& os) {
        << "     travel_variant: " << variant[i] << endl
        << "     experiments: " << std::endl;
     for (size_t j = 0, c = 0; j < 6; ++j, ++c) {
-      os << "           -experiment:" << endl <<
-      "           number: " << j + 1 << endl
+      os << "           -experiment:" << endl
+         << "           number: " << j + 1 << endl
          << "      input_data: " << endl
          << "            buffer_size: " << sizes[j] << " mb" << endl
          << "      results: " << endl

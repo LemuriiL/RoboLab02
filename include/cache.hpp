@@ -19,26 +19,25 @@ class Cache {
   double straightTimes[6];
   double backTimes[6];
   double randomTimes[6];
-
   string variant[3] = {"straight", "back", "random"};
 
  public:
   void CacheWeights();
-  void Fire(int *arrayToWarm, size_t size);
+  void Fire(int *arrayToFire, size_t size);
   void Straight();
   void Back();
   void Random();
-  int *ArrayGenerating(size_t bufferSize);
+  int *ArrayGenerating(size_t bSize);
   void Print(std::ostream& os);
   void WhatTimeCorrect(int i, int j);
 
  private:
   double sizes[6];
 
-  const double min = 0.256;
-  const double max = 8;
+  const double low = 0.256;
+  const double hight = 8;
   const int step = 16;
-  const int quantity = 1000;
+  const int shots = 1000;
 };
 
 #endif  // INCLUDE_HEADER_HPP_

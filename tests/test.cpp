@@ -3,10 +3,10 @@
 #include <gtest/gtest.h>
 
 TEST(Example, EmptyTest) {
-  Cache experiments;
-  experiments.CacheWeights();
-  experiments.Straight();
-  experiments.Back();
-  experiments.Random();
-  experiments.Print(std::cout);
+  Cache run;
+  run.CacheWeights();
+  run.Straight();
+  run.Back();
+  run.Random();
+  run.Print(std::cout);
 }

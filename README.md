@@ -158,3 +158,8 @@ investigation:                                       |  investigation:
 ### Рекомендации
 
 При создание неиспользуемых переменных для считывание данных из буфера можно использовать аттрибут `[[maybe_unused]]`
+
+РЕЗУЛЬТАТЫ:
+![Cache](./images/straight.jpeg)
+![Cache](./images/back.jpeg)
+![Cache](./images/random.jpeg)
