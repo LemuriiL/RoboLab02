@@ -159,7 +159,124 @@ investigation:                                       |  investigation:
 
 При создание неиспользуемых переменных для считывание данных из буфера можно использовать аттрибут `[[maybe_unused]]`
 
-РЕЗУЛЬТАТЫ:
-![Cache](./images/straight.jpeg)
-![Cache](./images/back.jpeg)
-![Cache](./images/random.jpeg)
+Результат: 
+
+```yaml
+Invistigations: 
+     travel_variant: straight
+     experiments: 
+           -experiment:
+           number: 1
+      input_data: 
+            buffer_size: 0.128 mb
+      results: 
+            duration: 18922 nanoseconds
+           -experiment:
+           number: 2
+      input_data: 
+            buffer_size: 1 mb
+      results: 
+            duration: 174761 nanoseconds
+           -experiment:
+           number: 3
+      input_data: 
+            buffer_size: 2 mb
+      results: 
+            duration: 444305 nanoseconds
+           -experiment:
+           number: 4
+      input_data: 
+            buffer_size: 4 mb
+      results: 
+            duration: 729231 nanoseconds
+           -experiment:
+           number: 5
+      input_data: 
+            buffer_size: 8 mb
+      results: 
+            duration: 1.23006e+06 nanoseconds
+           -experiment:
+           number: 6
+      input_data: 
+            buffer_size: 12 mb
+      results: 
+            duration: 1.87828e+06 nanoseconds
+Invistigations: 
+     travel_variant: back
+     experiments: 
+           -experiment:
+           number: 1
+      input_data: 
+            buffer_size: 0.128 mb
+      results: 
+            duration: 29582 nanoseconds
+           -experiment:
+           number: 2
+      input_data: 
+            buffer_size: 1 mb
+      results: 
+            duration: 190533 nanoseconds
+           -experiment:
+           number: 3
+      input_data: 
+            buffer_size: 2 mb
+      results: 
+            duration: 272122 nanoseconds
+           -experiment:
+           number: 4
+      input_data: 
+            buffer_size: 4 mb
+      results: 
+            duration: 772359 nanoseconds
+           -experiment:
+           number: 5
+      input_data: 
+            buffer_size: 8 mb
+      results: 
+            duration: 1.43754e+06 nanoseconds
+           -experiment:
+           number: 6
+      input_data: 
+            buffer_size: 12 mb
+      results: 
+            duration: 1.50952e+06 nanoseconds
+Invistigations: 
+     travel_variant: random
+     experiments: 
+           -experiment:
+           number: 1
+      input_data: 
+            buffer_size: 0.128 mb
+      results: 
+            duration: 13962 nanoseconds
+           -experiment:
+           number: 2
+      input_data: 
+            buffer_size: 1 mb
+      results: 
+            duration: 136157 nanoseconds
+           -experiment:
+           number: 3
+      input_data: 
+            buffer_size: 2 mb
+      results: 
+            duration: 321763 nanoseconds
+           -experiment:
+           number: 4
+      input_data: 
+            buffer_size: 4 mb
+      results: 
+            duration: 620009 nanoseconds
+           -experiment:
+           number: 5
+      input_data: 
+            buffer_size: 8 mb
+      results: 
+            duration: 1.27479e+06 nanoseconds
+           -experiment:
+           number: 6
+      input_data: 
+            buffer_size: 12 mb
+      results: 
+            duration: 1.86938e+06 nanoseconds
+
