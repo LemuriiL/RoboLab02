@@ -131,37 +131,7 @@ cache_size['3'] = 8 mb;
 Для получения времени обхода от размера массива процедуру прохода необходимо многократно повторить (порядка 1000 раз).
 
 ### Результаты
-
-Ниже представлен формат и пример отчета:
-
-```yaml
-investigation:                                       |  investigaion:
-  travel_variant: <вариант_прохода>                  |    travel_order: "direction"
-  experiments:                                       |    experiments:
-  - experiment:                                      |    - experiment:
-      number:                                        |        number: 1
-      input_data:                                    |        input_data:
-        buffer_size: <размер_буфера>                 |          buffer_size: "1mb"
-      results:                                       |        results:
-        duration: <продолжительность>                |          duration: "1ns"
-  - experiment:                                      |    - experiment:
-      number: <номер_эксперимента>                   |        number: 2
-      input_data:                                    |        input_data:
-        buffer_size: <размер_буфера>                 |          buffer_size: "2mb"
-      results:                                       |        results:
-        duration: <продолжительность>                |          duration: "2ns"
-                                                     |
-investigation:                                       |  investigation:
-...                                                  |  ...
 ```
-
-### Рекомендации
-
-При создание неиспользуемых переменных для считывание данных из буфера можно использовать аттрибут `[[maybe_unused]]`
-
-Результат: 
-
-```yaml
 Invistigations: 
      travel_variant: straight
      experiments: 
@@ -279,4 +249,13 @@ Invistigations:
             buffer_size: 12 mb
       results: 
             duration: 1.86938e+06 nanoseconds
+```
+### STRAIGHT
+![straight](./images/stra.jpeg)
 
+### BACK
+![back](./images/bk.jpeg)
+
+### RANDOM
+![random](./images/rand.jpeg)
+ 
